@@ -16,6 +16,18 @@ public class RatingsEntity {
     private int level;
     private double weight;
 
+    public RatingsEntity(String restaurantId, String aspect, String parentAspect, double rating, int noOfoccurance, int level, double weight) {
+        this.restaurantId = restaurantId;
+        this.aspect = aspect;
+        this.parentAspect = parentAspect;
+        this.rating = rating;
+        this.noOfoccurance = noOfoccurance;
+        this.level = level;
+        this.weight = weight;
+    }
+
+
+
     @Id
     @Column(name = "restaurantID")
     public String getRestaurantId() {
