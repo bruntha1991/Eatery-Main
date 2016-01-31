@@ -3,7 +3,7 @@ package com.arcturusx.eatery.domain;
 import javax.persistence.*;
 
 /**
- * Created by bruntha on 12/23/15.
+ * Created by bruntha on 1/31/16.
  */
 @Entity
 @Table(name = "business", schema = "", catalog = "eatery")
@@ -14,18 +14,6 @@ public class BusinessEntity {
     private String city;
     private String state;
     private Float stars;
-
-    public BusinessEntity() {
-    }
-
-    public BusinessEntity(String businessId, String name, String type, String city, String state, Float stars) {
-        this.businessId = businessId;
-        this.name = name;
-        this.type = type;
-        this.city = city;
-        this.state = state;
-        this.stars = stars;
-    }
 
     @Id
     @Column(name = "business_id")
