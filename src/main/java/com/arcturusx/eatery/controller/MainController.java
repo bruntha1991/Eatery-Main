@@ -1,28 +1,229 @@
 package com.arcturusx.eatery.controller;
 
-import com.arcturusx.eatery.service.BusinessService;
+import com.arcturusx.eatery.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 public class MainController {
 
-	@Autowired
-	BusinessService businessService;
+    @Autowired
+    BusinessService businessService;
+    @Autowired
+    AspectService aspectService;
+    @Autowired
+    RatingsService ratingsService;
+    @Autowired
+    WeightService weightService;
+    @Autowired
+    CompositeScoreService compositeScoreService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
-		model.addAttribute("message", "Hello world!");
-		return "home";
-	}
+//    CompositeRating compositeRating=new CompositeRating();
 
-	@RequestMapping(value = "update-business",method = RequestMethod.GET)
-	public String updateBusiness(ModelMap model) {
-		model.addAttribute("message", "Hello world!");
-		return "hello";
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    public String printWelcome(ModelMap model) {
+        model.addAttribute("message", "Hello world!");
+        return "home";
+    }
+
+    @RequestMapping(value = "best-restaurants", method = RequestMethod.GET)
+    public String updateBusiness(ModelMap model) {
+        model.addAttribute("message", "Hello world!");
+        List csRestaurants=compositeScoreService.getAllCompositeScoresOfRestaurants();
+        return "hello";
+    }
+
+    /*class CompositeRating {
+        public HashMap<String, Double> getCompositeRatings() {
+            List restaurants = businessService.getAllBusinesses();
+
+            HashMap<String, Double> compositeRatings = new HashMap<String, Double>();
+            for (int i = 0; i < restaurants.size(); i++) {
+                BusinessEntity businessEntity = (BusinessEntity) restaurants.get(i);
+                compositeRatings.put(businessEntity.getBusinessId(), getCompositeRating(businessEntity.getBusinessId()));
+                System.out.println(businessEntity.getBusinessId() + "\t" + getCompositeRating(businessEntity.getBusinessId()));
+            }
+            return compositeRatings;
+        }
+
+        public double getCompositeRating(String businessID) {
+            List ratings = ratingsService.getRatings(businessID);
+
+            double foodItemScore = getSubRatings("F_FoodItem", ratings);
+            double staffScore = getSubRatings("S_Staff", ratings);
+            double deliveryScore = getSubRatings("S_Delivery", ratings);
+            double entertainmentScore = getSubRatings("A_Entertainment", ratings);
+            double furnitureScore = getSubRatings("A_Furniture", ratings);
+            double placesScore = getSubRatings("A_Places", ratings);
+            double locatedAreaScore = getSubRatings("A_LocatedArea", ratings);
+            double paymentScore = getSubRatings("O_Payment", ratings);
+            double reservationScore = getSubRatings("O_Reservation", ratings);
+            double experienceScore = getSubRatings("O_Experience", ratings);
+            double environmentScore = getSubRatings("A_Environment", ratings);
+
+            updateSubRatings(ratings, "F_FoodItem", foodItemScore);
+            updateSubRatings(ratings, "S_Staff", staffScore);
+            updateSubRatings(ratings, "S_Delivery", deliveryScore);
+            updateSubRatings(ratings, "A_Entertainment", entertainmentScore);
+            updateSubRatings(ratings, "A_Furniture", furnitureScore);
+            updateSubRatings(ratings, "A_Places", placesScore);
+            updateSubRatings(ratings, "A_LocatedArea", locatedAreaScore);
+            updateSubRatings(ratings, "O_Payment", paymentScore);
+            updateSubRatings(ratings, "O_Reservation", reservationScore);
+            updateSubRatings(ratings, "O_Experience", experienceScore);
+            updateSubRatings(ratings, "A_Environment", environmentScore);
+
+//        print(ratings);
+
+            double serviceScore = getSubRatings("Service", ratings);
+            double worthinessScore = getSubRatings("Worthiness", ratings);
+            double ambienceScore = getSubRatings("Ambience", ratings);
+            double foodScore = getSubRatings("Food", ratings);
+            double offersScore = getSubRatings("Offers", ratings);
+            double othersScore = getSubRatings("Others", ratings);
+
+            updateSubRatings(ratings, "Service", serviceScore);
+            updateSubRatings(ratings, "Worthiness", worthinessScore);
+            updateSubRatings(ratings, "Ambience", ambienceScore);
+            updateSubRatings(ratings, "Food", foodScore);
+            updateSubRatings(ratings, "Offers", offersScore);
+            updateSubRatings(ratings, "Others", othersScore);
+
+//        print(ratings);
+
+            double restaurantScore = getSubRatings("Restaurant", ratings);
+            return restaurantScore;
+        }
+
+        public HashMap<String, Double> getCompositeRatingOfAspects(String restaurantName) {
+            List ratings = ratingsService.getRatings(restaurantName);
+            HashMap<String, Double> comScors = new HashMap<String, Double>();
+
+            double foodItemScore = getSubRatings("F_FoodItem", ratings);
+            double staffScore = getSubRatings("S_Staff", ratings);
+            double deliveryScore = getSubRatings("S_Delivery", ratings);
+            double entertainmentScore = getSubRatings("A_Entertainment", ratings);
+            double furnitureScore = getSubRatings("A_Furniture", ratings);
+            double placesScore = getSubRatings("A_Places", ratings);
+            double locatedAreaScore = getSubRatings("A_LocatedArea", ratings);
+            double paymentScore = getSubRatings("O_Payment", ratings);
+            double reservationScore = getSubRatings("O_Reservation", ratings);
+            double experienceScore = getSubRatings("O_Experience", ratings);
+            double environmentScore = getSubRatings("A_Environment", ratings);
+
+            comScors.put("F_FoodItem", foodItemScore);
+            comScors.put("S_Staff", staffScore);
+            comScors.put("S_Delivery", deliveryScore);
+            comScors.put("A_Entertainment", entertainmentScore);
+            comScors.put("A_Furniture", furnitureScore);
+            comScors.put("A_Places", placesScore);
+            comScors.put("A_LocatedArea", locatedAreaScore);
+            comScors.put("O_Payment", paymentScore);
+            comScors.put("O_Reservation", reservationScore);
+            comScors.put("O_Experience", experienceScore);
+            comScors.put("A_Environment", environmentScore);
+
+            updateSubRatings(ratings, "F_FoodItem", foodItemScore);
+            updateSubRatings(ratings, "S_Staff", staffScore);
+            updateSubRatings(ratings, "S_Delivery", deliveryScore);
+            updateSubRatings(ratings, "A_Entertainment", entertainmentScore);
+            updateSubRatings(ratings, "A_Furniture", furnitureScore);
+            updateSubRatings(ratings, "A_Places", placesScore);
+            updateSubRatings(ratings, "A_LocatedArea", locatedAreaScore);
+            updateSubRatings(ratings, "O_Payment", paymentScore);
+            updateSubRatings(ratings, "O_Reservation", reservationScore);
+            updateSubRatings(ratings, "O_Experience", experienceScore);
+            updateSubRatings(ratings, "A_Environment", environmentScore);
+
+//        print(ratings);
+
+            double serviceScore = getSubRatings("Service", ratings);
+            double worthinessScore = getSubRatings("Worthiness", ratings);
+            double ambienceScore = getSubRatings("Ambience", ratings);
+            double foodScore = getSubRatings("Food", ratings);
+            double offersScore = getSubRatings("Offers", ratings);
+            double othersScore = getSubRatings("Others", ratings);
+
+            comScors.put("Service", serviceScore);
+            comScors.put("Worthiness", worthinessScore);
+            comScors.put("Ambience", ambienceScore);
+            comScors.put("Food", foodScore);
+            comScors.put("Offers", offersScore);
+            comScors.put("Others", othersScore);
+
+
+            updateSubRatings(ratings, "Service", serviceScore);
+            updateSubRatings(ratings, "Worthiness", worthinessScore);
+            updateSubRatings(ratings, "Ambience", ambienceScore);
+            updateSubRatings(ratings, "Food", foodScore);
+            updateSubRatings(ratings, "Offers", offersScore);
+            updateSubRatings(ratings, "Others", othersScore);
+
+            double restaurantScore = getSubRatings("Restaurant", ratings);
+            comScors.put("Restaurant", restaurantScore);
+
+            return comScors;
+        }
+
+        private void updateSubRatings(List ratings, String aspect, double score) {
+            boolean isAvailable = false;
+            for (int i = 0; i < ratings.size(); i++) {
+                RatingsEntity ratingsEntity = (RatingsEntity) ratings.get(i);
+                if (ratingsEntity.getAspectByAspectTag().getAspectTag().matches(aspect)) {
+                    ratingsEntity.setScore(score);
+                    ratings.remove(i);
+                    ratings.add(ratingsEntity);
+                    isAvailable = true;
+                }
+            }
+            if (!isAvailable) {
+                ratings.add(new RatingsEntity(1,score,1, new BusinessEntity(),new AspectEntity(1,aspect,aspect,1,1)));
+            }
+        }
+
+        private void print(List ratings) {
+            for (int i = 0; i < ratings.size(); i++) {
+                RatingsEntity ratingsEntity = (RatingsEntity) ratings.get(i);
+                System.out.println(ratingsEntity.getAspectByAspectTag().getAspectTag() + " " + ratingsEntity.getScore());
+            }
+        }
+
+        private double getSubRatings(String parentAspect, List ratings) {
+//        HibernateMain hibernateMain = new HibernateMain();
+            List weights = weightService.getWeights(parentAspect);
+
+            double subRating = 0.0;
+            double factor = 0.0;
+            for (int i = 0; i < weights.size(); i++) {
+                WeightsEntity weightsEntity = (WeightsEntity) weights.get(i);
+                double rating = getRatingForAspect(weightsEntity.getAspect(), ratings);
+                if (rating != 0) {
+                    subRating += weightsEntity.getWeight() * rating;
+                    factor += weightsEntity.getWeight();
+                }
+            }
+            if (subRating != 0)
+                return subRating / factor;
+            else
+                return 0.0;
+        }
+
+        private double getRatingForAspect(String aspect, List ratings) {
+            double rating = 0.0;
+            for (int i = 0; i < ratings.size(); i++) {
+                RatingsEntity ratingsEntity = (RatingsEntity) ratings.get(i);
+                if (ratingsEntity.getAspectByAspectTag().getAspectTag().matches(aspect)) {
+                    rating = ratingsEntity.getScore();
+                    break;
+                }
+            }
+            return rating;
+        }
+    }*/
 }

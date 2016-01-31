@@ -14,4 +14,5 @@ public interface WeightDao {
     void delete(WeightsEntityPK weightsEntityPK);
     WeightsEntity getWeight(WeightsEntityPK weightsEntityPK);
     List getAllWeights();
+    List getWeights(String parentAspect);
 }

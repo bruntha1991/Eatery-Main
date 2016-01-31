@@ -13,4 +13,5 @@ public interface RatingsDao {
     void delete(int ratingID);
     RatingsEntity getRating(int ratingID);
     List getAllRatings();
+    List getRatings(String businessID);
 }

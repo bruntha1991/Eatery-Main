@@ -15,6 +15,18 @@ public class BusinessEntity {
     private String state;
     private Float stars;
 
+    public BusinessEntity() {
+    }
+
+    public BusinessEntity(String businessId, String name, String type, String city, String state, Float stars) {
+        this.businessId = businessId;
+        this.name = name;
+        this.type = type;
+        this.city = city;
+        this.state = state;
+        this.stars = stars;
+    }
+
     @Id
     @Column(name = "business_id")
     public String getBusinessId() {

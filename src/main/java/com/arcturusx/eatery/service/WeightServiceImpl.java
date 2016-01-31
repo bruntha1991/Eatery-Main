@@ -54,4 +54,10 @@ public class WeightServiceImpl implements WeightService {
         return weightDao.getAllWeights();
 
     }
+
+    @Override    @Transactional
+
+    public List getWeights(String parentAspect) {
+        return weightDao.getWeights(parentAspect);
+    }
 }

@@ -34,13 +34,19 @@ public class RatingsDaoImpl implements RatingsDao {
 
     @Override
     public RatingsEntity getRating(int ratingID) {
-        return (RatingsEntity)sessionFactory.getCurrentSession().get(RatingsEntity.class, ratingID);
+        return (RatingsEntity) sessionFactory.getCurrentSession().get(RatingsEntity.class, ratingID);
 
     }
 
     @Override
     public List getAllRatings() {
         return sessionFactory.getCurrentSession().createQuery("from RatingsEntity").list();
+
+    }
+
+    @Override
+    public List getRatings(String businessID) {
+        return sessionFactory.getCurrentSession().createQuery("from RatingsEntity as rating where rating.businessByRestaurantId.businessId=:businessID").setParameter("businessID", businessID).list();
 
     }
 }

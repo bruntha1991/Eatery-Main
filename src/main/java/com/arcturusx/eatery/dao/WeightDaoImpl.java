@@ -43,4 +43,9 @@ public class WeightDaoImpl implements WeightDao {
         return sessionFactory.getCurrentSession().createQuery("from WeightsEntity ").list();
 
     }
+
+    @Override
+    public List getWeights(String parentAspect) {
+        return sessionFactory.getCurrentSession().createQuery("from WeightsEntity as weights where weights.parentAspect=:parentAspect").setParameter("parentAspect",parentAspect).list();
+    }
 }

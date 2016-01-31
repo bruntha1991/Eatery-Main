@@ -48,4 +48,10 @@ public class RatingsServiceImpl implements RatingsService {
         return ratingsDao.getAllRatings();
 
     }
+
+    @Override
+    @Transactional
+    public List getRatings(String businessID) {
+        return ratingsDao.getRatings(businessID);
+    }
 }

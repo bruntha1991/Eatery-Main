@@ -14,6 +14,17 @@ public class AspectEntity {
     private int level;
     private int parentAspect;
 
+    public AspectEntity() {
+    }
+
+    public AspectEntity(int aspectId, String aspectName, String aspectTag, int level, int parentAspect) {
+        this.aspectId = aspectId;
+        this.aspectName = aspectName;
+        this.aspectTag = aspectTag;
+        this.level = level;
+        this.parentAspect = parentAspect;
+    }
+
     @Basic
     @Column(name = "aspect_id")
     public int getAspectId() {
