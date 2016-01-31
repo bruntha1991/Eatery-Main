@@ -14,5 +14,7 @@ public interface CompositeScoreDao {
     void delete(CompositeScoreEntityPK compositeScoreEntityPK);
     CompositeScoreEntity getCompositeScore(CompositeScoreEntityPK compositeScoreEntityPK);
     List getAllCompositeScores();
-    List getAllCompositeScoresOfRestaurants();
+    List getBestRestaurants();
+    List getBestRestaurantsOfAspect(int aspectID);
+    List getBestRestaurantsOfAspect(int aspectID,String businessId);
 }

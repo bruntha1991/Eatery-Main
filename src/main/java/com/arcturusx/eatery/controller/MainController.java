@@ -33,9 +33,23 @@ public class MainController {
     }
 
     @RequestMapping(value = "best-restaurants", method = RequestMethod.GET)
-    public String updateBusiness(ModelMap model) {
+    public String bestRestaurant(ModelMap model) {
         model.addAttribute("message", "Hello world!");
-        List csRestaurants=compositeScoreService.getAllCompositeScoresOfRestaurants();
+        List csRestaurants=compositeScoreService.getBestRestaurants();
+        return "hello";
+    }
+
+    @RequestMapping(value = "best-restaurants-aspect", method = RequestMethod.GET)
+    public String bestRestaurantAspect(ModelMap model) {
+        model.addAttribute("message", "Hello world!");
+        List csRestaurants=compositeScoreService.getBestRestaurantsOfAspect(10);
+        return "hello";
+    }
+
+    @RequestMapping(value = "best-restaurants-and-aspect", method = RequestMethod.GET)
+    public String bestRestaurantAndAspect(ModelMap model) {
+        model.addAttribute("message", "Hello world!");
+        List csRestaurants=compositeScoreService.getBestRestaurantsOfAspect(10,"2e2e7WgqU1BnpxmQL5jbfw");
         return "hello";
     }
 

@@ -45,8 +45,20 @@ public class CompositeScoreDaoImpl implements CompositeScoreDao {
     }
 
     @Override
-    public List getAllCompositeScoresOfRestaurants() {
+    public List getBestRestaurants() {
         return sessionFactory.getCurrentSession().createQuery("from CompositeScoreEntity as score where score.aspectId=67 order by score.compositeScore").list();
+
+    }
+
+    @Override
+    public List getBestRestaurantsOfAspect(int aspectID) {
+        return sessionFactory.getCurrentSession().createQuery("from CompositeScoreEntity as score where score.aspectId=:aspectID order by score.compositeScore").setParameter("aspectID",aspectID).list();
+
+    }
+
+    @Override
+    public List getBestRestaurantsOfAspect(int aspectID, String businessId) {
+        return sessionFactory.getCurrentSession().createQuery("from CompositeScoreEntity as score where score.aspectId=:aspectID and score.businessId=:businessId order by score.compositeScore").setParameter("aspectID", aspectID).setParameter("businessId", businessId).list();
 
     }
 }

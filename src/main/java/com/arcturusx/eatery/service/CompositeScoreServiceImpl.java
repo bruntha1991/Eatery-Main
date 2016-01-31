@@ -52,7 +52,20 @@ public class CompositeScoreServiceImpl implements CompositeScoreService {
 
     @Override
     @Transactional
-    public List getAllCompositeScoresOfRestaurants() {
-        return compositeScoreDao.getAllCompositeScoresOfRestaurants();
+    public List getBestRestaurants() {
+        return compositeScoreDao.getBestRestaurants();
+    }
+
+    @Override
+    @Transactional
+
+    public List getBestRestaurantsOfAspect(int aspectID) {
+        return compositeScoreDao.getBestRestaurantsOfAspect(aspectID);
+    }
+
+    @Override
+    @Transactional
+    public List getBestRestaurantsOfAspect(int aspectID, String businessId) {
+        return compositeScoreDao.getBestRestaurantsOfAspect(aspectID, businessId);
     }
 }
