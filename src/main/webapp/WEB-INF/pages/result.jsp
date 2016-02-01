@@ -114,8 +114,20 @@
         </div>
 
       </div>
-      <div class="grid_4" style="margin-top: 50px; font: 14px/20px 'Open Sans', sans-serif; color:black">
-        This is some text!
+      <div class="grid_4" style="margin-top: 50px; color:black">
+        <select>
+          <option value="Food">Food</option>
+          <option value="Fooditem">Fooditem</option>
+          <option value="Taste">Taste</option>
+          <option value="Price">Price</option>
+          <option value="Quality">Quality</option>
+          <option value="Healthy">Healthy</option>
+          <option value="CookingLevel">Cooking Level</option>
+          <option value="Size">Size</option>
+          <option value="Drink">Drink</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Appertizer">Appertizer</option>
+        </select>
       </div>
     </div>
   </div>
