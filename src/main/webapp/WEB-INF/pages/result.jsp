@@ -123,5 +123,35 @@
 
 
 </section>
+
+<script>
+
+
+  function getRequiredId(cell, comid) {
+
+    "use strict";
+    // get the form values
+    var value = cell.innerHTML;
+    var comid = comid;
+
+    event.preventDefault();
+    $.ajax({
+
+      type: "POST",
+      url: "update-potential-client",
+      data: "comid=" + comid + "&value=" + value,
+      success: function (response) {
+        // we have the response
+        $('#info').html(response);
+        $('#comid').val('');
+        $('#value').val('');
+      },
+      error: function (e) {
+        alert('Error: ' + e + comid + "  " + value);
+      }
+    });
+
+  }
+  </script>
 </body>
 </html>
