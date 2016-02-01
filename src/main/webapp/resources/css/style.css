@@ -26,8 +26,8 @@ a[href^="tel:"] {
 
 body {
     position: relative;
-    background-color: #adacac;
-    color: #969696;
+    background-color: #ffffff;
+    color: #ffffff;
     font: 300 14px/20px 'Open Sans', sans-serif;
 }
 
@@ -289,7 +289,7 @@ header {
     position: relative;
     z-index: 800;
     padding-top: 0px;
-    background-color: #b0e0e6;
+    background-color: #3ab4a6;
 }
 
 header h1 {

@@ -29,7 +29,7 @@ public class MainController {
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         model.addAttribute("message", "Hello world!");
-        return "home";
+        return "result";
     }
 
     @RequestMapping(value = "best-restaurants", method = RequestMethod.GET)
