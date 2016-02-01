@@ -1,5 +1,6 @@
 package com.arcturusx.eatery.controller;
 
+import com.arcturusx.eatery.domain.AspectEntity;
 import com.arcturusx.eatery.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,22 +35,40 @@ public class MainController {
 
     @RequestMapping(value = "best-restaurants", method = RequestMethod.GET)
     public String bestRestaurant(ModelMap model) {
-        List csRestaurants=compositeScoreService.getBestRestaurants();
-        model.addAttribute("message",csRestaurants);
+        List csRestaurants = compositeScoreService.getBestRestaurants();
+        model.addAttribute("message", csRestaurants);
         return "best-restaurants";
     }
 
-    @RequestMapping(value = "best-restaurants-aspect", method = RequestMethod.GET)
-    public String bestRestaurantAspect(ModelMap model) {
-        List csRestaurants=compositeScoreService.getBestRestaurantsOfAspect(10);
-        model.addAttribute("message",csRestaurants);
+    @RequestMapping(value = "result", method = RequestMethod.GET)
+    public String resultPage() {
         return "result";
+    }
+
+    @RequestMapping(value = "best-restaurants-aspect", method = RequestMethod.POST)
+    public String bestRestaurantAspect(ModelMap model, String aspect_name) {
+        List aspects = aspectService.getAllAspects();
+        List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(getAspectID(aspect_name,aspects));
+        model.addAttribute("csRestaurants", csRestaurants);
+        return "result";
+    }
+
+    private int getAspectID(String aspect_name,List aspects) {
+        int aspectID = 0;
+        for (int i = 0; i < aspects.size(); i++) {
+            AspectEntity aspectEntity = (AspectEntity) aspects.get(i);
+            if (aspectEntity.getAspectName().matches(aspect_name)) {
+                aspectID = aspectEntity.getAspectId();
+                break;
+            }
+        }
+        return aspectID;
     }
 
     @RequestMapping(value = "best-restaurants-and-aspect", method = RequestMethod.GET)
     public String bestRestaurantAndAspect(ModelMap model) {
-        List csRestaurants=compositeScoreService.getBestRestaurantsOfAspect(10,"2e2e7WgqU1BnpxmQL5jbfw");
-        model.addAttribute("message",csRestaurants);
+        List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(10, "2e2e7WgqU1BnpxmQL5jbfw");
+        model.addAttribute("message", csRestaurants);
         return "result";
     }
 

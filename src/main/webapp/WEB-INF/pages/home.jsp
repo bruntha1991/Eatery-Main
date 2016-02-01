@@ -79,7 +79,7 @@
               <div class="maxheight">
                 <img src="resources/images/icon3.png" alt="">
                 <div class="bann_title">Restaurant</div>
-                <a href="resources/#">Find Now</a>
+                <a href="/result">Find Now</a>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@
               <div class="maxheight">
                 <img src="resources/images/icon2.png" alt="">
                 <div class="bann_title">Aspect</div>
-                <a href="resources/#">Find Now</a>
+                <a href="/result">Find Now</a>
               </div>
             </div>
             <img src="resources/images/page1_img2.jpg" alt="">
@@ -107,7 +107,7 @@
               <div class="maxheight">
                 <img src="resources/images/icon1.png" alt="">
                 <div class="bann_title">Food</div>
-                <a href="resources/#">Find Now</a>
+                <a href="/result">Find Now</a>
               </div>
             </div>
           </div>
