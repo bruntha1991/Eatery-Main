@@ -29,7 +29,7 @@ public class MainController {
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         model.addAttribute("message", "Hello world!");
-        return "result";
+        return "home";
     }
 
     @RequestMapping(value = "best-restaurants", method = RequestMethod.GET)
@@ -43,14 +43,14 @@ public class MainController {
     public String bestRestaurantAspect(ModelMap model) {
         List csRestaurants=compositeScoreService.getBestRestaurantsOfAspect(10);
         model.addAttribute("message",csRestaurants);
-        return "hello";
+        return "result";
     }
 
     @RequestMapping(value = "best-restaurants-and-aspect", method = RequestMethod.GET)
     public String bestRestaurantAndAspect(ModelMap model) {
         List csRestaurants=compositeScoreService.getBestRestaurantsOfAspect(10,"2e2e7WgqU1BnpxmQL5jbfw");
         model.addAttribute("message",csRestaurants);
-        return "hello";
+        return "result";
     }
 
     /*class CompositeRating {
