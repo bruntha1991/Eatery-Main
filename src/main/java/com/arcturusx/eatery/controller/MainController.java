@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,8 +42,29 @@ public class MainController {
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         model.addAttribute("message", "Hello world!");
-        return "home";
+        model.addAttribute("notFirstTime","0");
+        return "Main";
     }
+
+    @RequestMapping(value="autocomplete",method = RequestMethod.GET)
+    public String autoComplete(ModelMap model) {
+        model.addAttribute("message", "Hello world!");
+        return "AutocompleteRestaurant";
+    }
+
+    @RequestMapping(value = "Restaurants", method = RequestMethod.GET)
+    public String getRestaurant(ModelMap model) {
+        List csRestaurants = businessService.getAllBusinesses();
+        model.addAttribute("message", csRestaurants);
+        return "AutocompleteRestaurant";
+    }
+    @RequestMapping(value = "Foods", method = RequestMethod.GET)
+    public String getFoods(ModelMap model) {
+        List csRestaurants = businessService.getAllBusinesses();
+        model.addAttribute("message", csRestaurants);
+        return "AutocompleteFoods";
+    }
+
 
     @RequestMapping(value = "best-restaurants", method = RequestMethod.GET)
     public String bestRestaurant(ModelMap model) {
@@ -57,11 +79,18 @@ public class MainController {
     }
 
     @RequestMapping(value = "best-restaurants-aspect", method = RequestMethod.POST)
-    public String bestRestaurantAspect(ModelMap model, String aspect_name) {
+    public  @ResponseBody
+    String bestRestaurantAspect(ModelMap model, String aspect_id) {
         List aspects = aspectService.getAllAspects();
-        List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(getAspectID(aspect_name, aspects));
+
+        List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(getAspectID(aspect_id, aspects));
+
         model.addAttribute("csRestaurants", csRestaurants);
-        return "result";
+
+        String response="hello"+"*"+"hi";
+
+
+        return response;
     }
 
     private int getAspectID(String aspect_name, List aspects) {
