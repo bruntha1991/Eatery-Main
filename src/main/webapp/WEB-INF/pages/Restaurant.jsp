@@ -1,3 +1,6 @@
+<%@ page import="java.util.List" %>
+<%@ page import="org.json.simple.JSONObject" %>
+<%@ page import="com.arcturusx.eatery.domain.BusinessEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: prakhash
@@ -35,44 +38,27 @@
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
   <script src=resources/script.js></script>
   <script>
-    $(document).ready(function(){
-
-      $().UItoTop({ easingType: 'easeOutQuart' });
-      $('#stuck_container').tmStickUp({});
-      $('.gallery .gall_item').touchTouch();
-
-    });
-  </script>
-  <script>
     $(function() {
-      var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-      ];
+      <%
+      List businessLit=(List) request.getAttribute("message");
+      JSONObject tmp;
+      String listString="[";
+      for (int i=0;i<businessLit.size()-1;i++){
+      BusinessEntity businessEntity=(BusinessEntity) businessLit.get(i);
+      listString+="\"";
+      listString+=businessEntity.getName().toString()+"\",";
+      }
+      BusinessEntity businessEntity=(BusinessEntity) businessLit.get(businessLit.size()-1);
+      listString+="\"";
+      listString+=businessEntity.getName().toString()+"\"]";
+
+      %>
+      <%--var availableTags = <%=listString%>--%>
       $( "#tags" ).autocomplete({
-        source: availableTags
+        source: <%=listString%>
       });
     });
+
   </script>
   <!--[if lt IE 9]>
   <div style=' clear: both; text-align:center; position: relative;'>
@@ -209,7 +195,10 @@
         </div>
       </div>
       <div class="grid_4" style="margin-top: 50px; color:black">
-
+        <div class="ui-widget">
+          <label for="tags">Search: </label>
+          <input id="tags">
+        </div>
       </div>
     </div>
   </div>

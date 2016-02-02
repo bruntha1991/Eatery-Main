@@ -199,10 +199,13 @@
             type: "POST",
             url: "best-restaurants-aspect",
             data: "aspect_id=" + value,
+            dataType: "json",
             success: function (response) {
+                alert("sucess");
                $("#ajaxResponse").empty();
                 var divs=response.split("*");
                $("#ajaxResponse").append(divs[0]+ "<br/>");
+               $("#ajaxResponse").append(divs[1]+ "<br/>");
 
             },
             error: function (e) {

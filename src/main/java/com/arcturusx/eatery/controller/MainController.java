@@ -73,6 +73,7 @@ public class MainController {
     String bestRestaurantAspect(ModelMap model, String aspect_id) {
         List aspects = aspectService.getAllAspects();
         List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(getAspectID(aspect_id, aspects));
+        model.addAttribute("csRestaurants", csRestaurants);
 
         String response="hello"+"*"+"hi";
 
