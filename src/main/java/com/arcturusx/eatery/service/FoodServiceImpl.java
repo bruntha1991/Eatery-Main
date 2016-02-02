@@ -18,4 +18,14 @@ public class FoodServiceImpl implements FoodService {
     public List getAllFood(String businessID, String clusterHead) {
         return foodDao.getAllFood(businessID, clusterHead);
     }
+
+    @Override
+    public List getAllFood(String clusterHead) {
+        return foodDao.getAllFood(clusterHead);
+    }
+
+    @Override
+    public List getAllClusterHeads() {
+        return foodDao.getAllClusterHeads();
+    }
 }

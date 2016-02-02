@@ -126,9 +126,9 @@ public class MainController {
 
     @RequestMapping(value = "best-food", method = RequestMethod.GET)
     public String bestFood(ModelMap model) {
-        List foods = foodService.getAllFood("2e2e7WgqU1BnpxmQL5jbfw","beans");
+        List csRestaurants = foodService.getAllFood("beans");
 
-        model.addAttribute("score", getCompositeScore(foods));
+        model.addAttribute("csRestaurants",csRestaurants);
         return "result";
     }
 

@@ -17,4 +17,15 @@ public class FoodDaoImpl implements FoodDao {
         return sessionFactory.getCurrentSession().createQuery("from FoodEntity as food where food.restaurantId=:businessID and food.clusterHead=:clusterHead").setParameter("businessID",businessID).setParameter("clusterHead",clusterHead).list();
 
     }
+
+    @Override
+    public List getAllFood(String clusterHead) {
+        return sessionFactory.getCurrentSession().createQuery("from FoodEntity as food where food.clusterHead=:clusterHead order by food.score desc").setParameter("clusterHead",clusterHead).list();
+    }
+
+    @Override
+    public List getAllClusterHeads() {
+        return sessionFactory.getCurrentSession().createQuery("select distinct FoodEntity.clusterHead from FoodEntity ").list();
+
+    }
 }

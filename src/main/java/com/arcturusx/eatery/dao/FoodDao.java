@@ -7,4 +7,6 @@ import java.util.List;
  */
 public interface FoodDao {
     List getAllFood(String businessID,String clusterHead);
+    List getAllFood(String clusterHead);
+    List getAllClusterHeads();
 }
