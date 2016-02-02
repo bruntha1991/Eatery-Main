@@ -50,11 +50,13 @@
     <bean id="aspectDao" class="com.arcturusx.eatery.dao.AspectDaoImpl"/>
     <bean id="weightDao" class="com.arcturusx.eatery.dao.WeightDaoImpl"/>
     <bean id="compositeScoreDao" class="com.arcturusx.eatery.dao.CompositeScoreDaoImpl"/>
+    <bean id="foodDao" class="com.arcturusx.eatery.dao.FoodDaoImpl"/>
 
     <bean id="ratingsService" class="com.arcturusx.eatery.service.RatingsServiceImpl"/>
     <bean id="businessService" class="com.arcturusx.eatery.service.BusinessServiceImpl"/>
     <bean id="aspectService" class="com.arcturusx.eatery.service.AspectServiceImpl"/>
     <bean id="weightService" class="com.arcturusx.eatery.service.WeightServiceImpl"/>
     <bean id="compositeScoreService" class="com.arcturusx.eatery.service.CompositeScoreServiceImpl"/>
+    <bean id="foodService" class="com.arcturusx.eatery.service.FoodServiceImpl"/>
 
 </beans>
