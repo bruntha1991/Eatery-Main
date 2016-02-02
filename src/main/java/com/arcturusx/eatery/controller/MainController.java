@@ -1,6 +1,7 @@
 package com.arcturusx.eatery.controller;
 
 import com.arcturusx.eatery.domain.AspectEntity;
+import com.arcturusx.eatery.domain.CompositeScoreEntity;
 import com.arcturusx.eatery.domain.FoodRating;
 import com.arcturusx.eatery.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -79,19 +80,25 @@ public class MainController {
     }
 
     @RequestMapping(value = "best-restaurants-aspect", method = RequestMethod.POST)
-    public  @ResponseBody
-    String bestRestaurantAspect(ModelMap model, String aspect_id) {
+    public @ResponseBody
+    String bestRestaurantAspect(ModelMap model, String aspect_id) throws JsonProcessingException {
         List aspects = aspectService.getAllAspects();
+        int asId=Integer.parseInt(aspect_id);
 
-        List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(getAspectID(aspect_id, aspects));
+        List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(asId);
 
-        model.addAttribute("csRestaurants", csRestaurants);
+        String response="";
 
-        String response="hello"+"*"+"hi";
+        for(int i=0;i<csRestaurants.size();i++){
+            CompositeScoreEntity compositeScoreEntity= (CompositeScoreEntity) csRestaurants.get(i);
+            response=response+compositeScoreEntity.getBusinessId()+"*"+compositeScoreEntity.getCompositeScore();
+            response+="##";
+        }
 
 
         return response;
     }
+
 
     private int getAspectID(String aspect_name, List aspects) {
         int aspectID = 0;
