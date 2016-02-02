@@ -1,5 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<%--
+  Created by IntelliJ IDEA.
+  User: prakhash
+  Date: 01/02/16
+  Time: 19:55
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
 <head>
   <title>Home</title>
   <meta charset="utf-8">
@@ -22,7 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="resources/styles.css">
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-  <script src="resources/script.js"></script>
+  <script src=resources/script.js></script>
   <script>
     $(document).ready(function(){
 
@@ -65,7 +73,6 @@
     }
   </style>
 </head>
-
 <body class="page1" id="top">
 <!--==============================
               header
@@ -79,7 +86,7 @@
       <div class="row">
         <div class="grid_12" >
           <h1>
-            <a href="resources/index.html">
+            <a href="index.html">
               <img src="resources/images/logo2.gif" alt="Logo alt">
             </a>
           </h1>
@@ -94,18 +101,72 @@
 ======================-->
 <section class="content"><div class="ic">More Website Templates @ TemplateMonster.com - July 30, 2014!</div>
   <div class="container">
-    <div class="row" >
+    <div class="row">
       <div class="grid_4" style="margin-top: 50px">
         <div id='cssmenu'>
           <ul>
             <li class='active has-sub'><a href='#'>Aspect</a>
               <ul>
-                <li><a href='#'>Food</a></li>
-                <li><a href='#'>Service</a></li>
-                <li><a href='#'>Ambience</a></li>
+                <li class="has-sub"><a href='#'>Food</a>
+
+                  <ul>
+                    <li><a href='#'>Food</a></li>
+                    <li><a href='#'>Fooditem</a></li>
+                    <li><a href='#'>Fooditem - Taste</a></li>
+                    <li><a href='#'>Fooditem - Price</a></li>
+                    <li><a href='#'>Fooditem - Quality</a></li>
+                    <li><a href='#'>Fooditem - Healthy</a></li>
+                    <li><a href='#'>Fooditem - Cooking Level</a></li>
+                    <li><a href='#'>Size</a></li>
+                    <li><a href='#'>Drink</a></li>
+                    <li><a href='#'>Dessert</a></li>
+                    <li><a href='#'>Appertizer</a></li>
+                  </ul>
+                </li>
+                <li class="has-sub"><a href='#'>Service</a>
+                  <ul>
+                    <li><a href='#'>Service</a></li>
+                    <li><a href='#'>Staffs</a></li>
+                    <li><a href='#'>Staff - Experience</a></li>
+                    <li><a href='#'>Staff - Behaviour</a></li>
+                    <li><a href='#'>Staff - Availability</a></li>
+                    <li><a href='#'>Staff - Appearance</a></li>
+                    <li><a href='#'>Open hours</a></li>
+                    <li><a href='#'>Menu</a></li>
+                    <li><a href='#'>Wifi</a></li>
+                    <li><a href='#'>Delivery</a></li>
+                    <li><a href='#'>Delivery - Time</a></li>
+                  </ul>
+                </li>
+                <li class="has-sub"><a href='#'>Ambience</a>
+                  <ul>
+                    <li><a href='#'>Decor</a></li>
+                    <li><a href='#'>Furniture</a></li>
+                    <li><a href='#'>Environment</a></li>
+                    <li><a href='#'>Environment - Size</a></li>
+                    <li><a href='#'>Environment - Type</a></li>
+                    <li><a href='#'>Entertainment</a></li>
+                    <li><a href='#'>Places</a></li>
+                    <li><a href='#'>Places - Bar</a></li>
+                    <li><a href='#'>Places - Dining Room</a></li>
+                    <li><a href='#'>Outside View</a></li>
+                    <li><a href='#'>Located Area</a></li>
+                  </ul>
+                </li>
                 <li><a href='#'>Offer/Discount</a></li>
-                <li><a href='#'>Worthiness</a></li>
-                <li><a href='#'>Others</a></li>
+                <li class="has-sub"><a href='#'>Worthiness</a>
+                  <ul>
+                    <li><a href='#'>Price</a></li>
+                    <li><a href='#'>Waiting</a></li>
+                  </ul>
+                </li>
+                <li class="has-sub"><a href='#'>Others</a>
+                  <ul>
+                    <li><a href='#'>Reservation</a></li>
+                    <li><a href='#'>Payment</a></li>
+                    <li><a href='#'>Overall Experience</a></li>
+                  </ul>
+                </li>
               </ul>
             </li>
             <li><a href='#'>Restaurant</a></li>
@@ -115,22 +176,9 @@
 
       </div>
       <div class="grid_4" style="margin-top: 50px; color:black">
-        <select name="dropdown" onchange="getRequiredId()">
-          <option value="Food" >Food</option>
-          <option  value="Fooditem">Fooditem</option>
-          <option value="Taste">Taste</option>
-          <option value="Price">Price</option>
-          <option value="Quality">Quality</option>
-          <option value="Healthy">Healthy</option>
-          <option value="CookingLevel">Cooking Level</option>
-          <option value="Size">Size</option>
-          <option value="Drink">Drink</option>
-          <option value="Dessert">Dessert</option>
-          <option value="Appertizer">Appertizer</option>
-        </select>
+
       </div>
     </div>
-
   </div>
   </div>
 

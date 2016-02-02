@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,200);
-#cssmenu,
+#cssmenu, #options,
 #cssmenu ul,
 #cssmenu ul li,
 #cssmenu ul li a {
@@ -14,15 +14,15 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-#cssmenu {
-  width: 220px;
+#cssmenu, #options, #options > option {
+  width: 280px;
   font-family: Raleway, sans-serif;
   color: #ffffff;
 }
 #cssmenu ul ul {
   display: none;
 }
-#cssmenu > ul > li.active > ul {
+#cssmenu > ul > li.active > ul{
   display: block;
 }
 .align-right {
@@ -40,10 +40,22 @@
   -o-transition: color .2s ease;
   transition: color .2s ease;
 }
-#cssmenu > ul > li > a:hover {
+#options, #options > option {
+  padding: 16px 22px;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 16px;
+  text-decoration: none;
+  color: #ffffff;
+  background: #3ab4a6;
+  -webkit-transition: color .2s ease;
+  -o-transition: color .2s ease;
+  transition: color .2s ease;
+}
+#cssmenu > ul > li > a:hover{
   color: #d8f3f0;
 }
-#cssmenu ul > li.has-sub > a:after {
+#cssmenu ul > li.has-sub > a:after{
   position: absolute;
   right: 26px;
   top: 19px;
@@ -59,7 +71,7 @@
   -o-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
 }
-#cssmenu ul > li.has-sub > a:before {
+#cssmenu ul > li.has-sub > a:before{
   position: absolute;
   right: 22px;
   top: 23px;
