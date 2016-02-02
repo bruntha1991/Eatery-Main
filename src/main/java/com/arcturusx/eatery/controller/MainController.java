@@ -1,6 +1,7 @@
 package com.arcturusx.eatery.controller;
 
 import com.arcturusx.eatery.domain.AspectEntity;
+import com.arcturusx.eatery.domain.FoodEntity;
 import com.arcturusx.eatery.domain.FoodRating;
 import com.arcturusx.eatery.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,6 +34,8 @@ public class MainController {
     WeightService weightService;
     @Autowired
     CompositeScoreService compositeScoreService;
+    @Autowired
+    FoodService foodService;
 
     private static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -42,11 +45,11 @@ public class MainController {
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         model.addAttribute("message", "Hello world!");
-        model.addAttribute("notFirstTime","0");
+        model.addAttribute("notFirstTime", "0");
         return "Main";
     }
 
-    @RequestMapping(value="autocomplete",method = RequestMethod.GET)
+    @RequestMapping(value = "autocomplete", method = RequestMethod.GET)
     public String autoComplete(ModelMap model) {
         model.addAttribute("message", "Hello world!");
         return "AutocompleteRestaurant";
@@ -58,6 +61,7 @@ public class MainController {
         model.addAttribute("message", csRestaurants);
         return "AutocompleteRestaurant";
     }
+
     @RequestMapping(value = "Foods", method = RequestMethod.GET)
     public String getFoods(ModelMap model) {
         List csRestaurants = businessService.getAllBusinesses();
@@ -79,7 +83,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "best-restaurants-aspect", method = RequestMethod.POST)
-    public  @ResponseBody
+    public
+    @ResponseBody
     String bestRestaurantAspect(ModelMap model, String aspect_id) {
         List aspects = aspectService.getAllAspects();
 
@@ -87,7 +92,7 @@ public class MainController {
 
         model.addAttribute("csRestaurants", csRestaurants);
 
-        String response="hello"+"*"+"hi";
+        String response = "hello" + "*" + "hi";
 
 
         return response;
@@ -114,9 +119,20 @@ public class MainController {
 
     @RequestMapping(value = "best-food", method = RequestMethod.GET)
     public String bestFood(ModelMap model) {
-        List csRestaurants=getBestRestaurants("pecans");
-        model.addAttribute("message", csRestaurants);
+        List foods = foodService.getAllFood("2e2e7WgqU1BnpxmQL5jbfw","beans");
+
+        model.addAttribute("score", getCompositeScore(foods));
         return "result";
+    }
+
+    private double getCompositeScore(List list) {
+        double score=0.0;
+
+        for (int i = 0; i < list.size(); i++) {
+            FoodEntity foodEntity= (FoodEntity) list.get(i);
+            score+=foodEntity.getScore();
+        }
+        return score/list.size();
     }
 
     private List getBestRestaurants(String foodName) {
@@ -131,8 +147,8 @@ public class MainController {
 
             while ((line = br.readLine()) != null) {
                 String[] tmp = line.split("[ \t]");
-                if(tmp[1].matches(foodName))
-                    list.add(new FoodRating(tmp[0],Double.parseDouble(tmp[2])));
+                if (tmp[1].matches(foodName))
+                    list.add(new FoodRating(tmp[0], Double.parseDouble(tmp[2])));
             }
             br.close();
             fr.close();
