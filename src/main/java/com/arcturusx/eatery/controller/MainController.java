@@ -1,6 +1,7 @@
 package com.arcturusx.eatery.controller;
 
 import com.arcturusx.eatery.domain.AspectEntity;
+import com.arcturusx.eatery.domain.FoodRating;
 import com.arcturusx.eatery.service.*;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -72,7 +78,9 @@ public class MainController {
     public  @ResponseBody
     String bestRestaurantAspect(ModelMap model, String aspect_id) {
         List aspects = aspectService.getAllAspects();
+
         List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(getAspectID(aspect_id, aspects));
+
         model.addAttribute("csRestaurants", csRestaurants);
 
         String response="hello"+"*"+"hi";
@@ -81,7 +89,7 @@ public class MainController {
         return response;
     }
 
-    private int getAspectID(String aspect_name,List aspects) {
+    private int getAspectID(String aspect_name, List aspects) {
         int aspectID = 0;
         for (int i = 0; i < aspects.size(); i++) {
             AspectEntity aspectEntity = (AspectEntity) aspects.get(i);
@@ -99,6 +107,39 @@ public class MainController {
         model.addAttribute("message", csRestaurants);
         return "result";
     }
+
+    @RequestMapping(value = "best-food", method = RequestMethod.GET)
+    public String bestFood(ModelMap model) {
+        List csRestaurants=getBestRestaurants("pecans");
+        model.addAttribute("message", csRestaurants);
+        return "result";
+    }
+
+    private List getBestRestaurants(String foodName) {
+        List list = new ArrayList();
+
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource("FoodRatingAggregated.txt").getFile());
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] tmp = line.split("[ \t]");
+                if(tmp[1].matches(foodName))
+                    list.add(new FoodRating(tmp[0],Double.parseDouble(tmp[2])));
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
 
     /*class CompositeRating {
         public HashMap<String, Double> getCompositeRatings() {
