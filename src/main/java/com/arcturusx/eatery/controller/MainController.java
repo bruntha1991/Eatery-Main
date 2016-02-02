@@ -3,6 +3,8 @@ package com.arcturusx.eatery.controller;
 import com.arcturusx.eatery.domain.AspectEntity;
 import com.arcturusx.eatery.domain.FoodRating;
 import com.arcturusx.eatery.service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,6 +32,9 @@ public class MainController {
     WeightService weightService;
     @Autowired
     CompositeScoreService compositeScoreService;
+
+    private static ObjectMapper objectMapper = new ObjectMapper();
+
 
 //    CompositeRating compositeRating=new CompositeRating();
 
@@ -72,9 +77,9 @@ public class MainController {
     }
 
     @RequestMapping(value = "best-restaurants-and-aspect", method = RequestMethod.GET)
-    public String bestRestaurantAndAspect(ModelMap model) {
+    public String bestRestaurantAndAspect(ModelMap model) throws JsonProcessingException {
         List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(10, "2e2e7WgqU1BnpxmQL5jbfw");
-        model.addAttribute("message", csRestaurants);
+        model.addAttribute("message", objectMapper.writeValueAsString(csRestaurants));
         return "result";
     }
 
