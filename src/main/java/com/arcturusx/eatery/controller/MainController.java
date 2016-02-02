@@ -97,7 +97,7 @@ public class MainController {
 
         for(int i=0;i<csRestaurants.size();i++){
             CompositeScoreEntity compositeScoreEntity= (CompositeScoreEntity) csRestaurants.get(i);
-            response=response+compositeScoreEntity.getBusinessId()+"*"+compositeScoreEntity.getCompositeScore();
+            response=response+businessService.getBusiness(compositeScoreEntity.getBusinessId()).getName()+"*"+compositeScoreEntity.getCompositeScore();
             response+="##";
         }
 

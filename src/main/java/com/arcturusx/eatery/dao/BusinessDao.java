@@ -10,7 +10,7 @@ import java.util.List;
 public interface BusinessDao {
     void insert(BusinessEntity businessEntity);
     void edit(BusinessEntity businessEntity);
-    void delete(int businessID);
-    BusinessEntity getBusiness(int businessID);
+    void delete(String businessID);
+    BusinessEntity getBusiness(String businessID);
     List getAllBusinesses();
 }

@@ -26,13 +26,12 @@ public class BusinessDaoImpl implements BusinessDao {
     }
 
     @Override
-    public void delete(int businessID) {
+    public void delete(String businessID) {
         sessionFactory.getCurrentSession().delete(getBusiness(businessID));
-
     }
 
     @Override
-    public BusinessEntity getBusiness(int businessID) {
+    public BusinessEntity getBusiness(String businessID) {
         return (BusinessEntity)sessionFactory.getCurrentSession().get(BusinessEntity.class, businessID);
 
     }

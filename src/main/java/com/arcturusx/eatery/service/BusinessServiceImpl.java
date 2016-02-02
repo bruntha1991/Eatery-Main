@@ -28,19 +28,18 @@ public class BusinessServiceImpl implements BusinessService {
 
     }
 
-    @Override
-    @Transactional
-    public void delete(int businessID) {
+    @Override    @Transactional
+
+    public void delete(String businessID) {
         businessDao.delete(businessID);
-
     }
 
-    @Override
-    @Transactional
-    public BusinessEntity getBusiness(int businessID) {
+    @Override    @Transactional
+
+    public BusinessEntity getBusiness(String businessID) {
         return businessDao.getBusiness(businessID);
-
     }
+
 
     @Override
     @Transactional
