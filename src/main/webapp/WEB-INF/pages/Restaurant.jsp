@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.json.simple.JSONObject" %>
 <%@ page import="com.arcturusx.eatery.domain.BusinessEntity" %>
+<%@ page import="com.arcturusx.eatery.domain.AspectEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: prakhash
@@ -36,12 +37,14 @@
   <link rel="stylesheet" href="resources/styles.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src=resources/script.js></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script>
     $(function() {
       <%
       List businessLit=(List) request.getAttribute("message");
-      JSONObject tmp;
       String listString="[";
       for (int i=0;i<businessLit.size()-1;i++){
       BusinessEntity businessEntity=(BusinessEntity) businessLit.get(i);
@@ -56,6 +59,28 @@
       <%--var availableTags = <%=listString%>--%>
       $( "#tags" ).autocomplete({
         source: <%=listString%>
+      });
+    });
+
+  </script>
+  <script>
+    $(function() {
+      <%
+      List aspectList=(List) request.getAttribute("message1");
+      String listString1="[";
+      for (int i=0;i<aspectList.size()-1;i++){
+      AspectEntity aspectEntity=(AspectEntity) aspectList.get(i);
+      listString1+="\"";
+      listString1+=aspectEntity.getAspectName().toString()+"\",";
+      }
+      AspectEntity aspectEntity=(AspectEntity) aspectList.get(aspectList.size()-1);
+      listString1+="\"";
+      listString1+=aspectEntity.getAspectName().toString()+"\"]";
+
+      %>
+      <%--var availableTags = <%=listString%>--%>
+      $( "#tags1" ).autocomplete({
+        source: <%=listString1%>
       });
     });
 
@@ -125,7 +150,7 @@
       <div class="grid_4" style="margin-top: 50px">
         <div id='cssmenu'>
           <ul>
-            <li class='active has-sub'><a href='#'>Aspect</a>
+            <li ><a href='Main'>Aspect</a>
               <ul>
                 <li class="has-sub"><a href='#'>Food</a>
 
@@ -189,20 +214,56 @@
                 </li>
               </ul>
             </li>
-            <li><a href='#'>Restaurant</a></li>
-            <li><a href='#'>Food</a></li>
+            <li><a href='Restaurants'>Restaurant</a></li>
+            <li><a href='food-list'>Food</a></li>
           </ul>
         </div>
       </div>
-      <div class="grid_4" style="margin-top: 50px; color:black">
-        <div class="ui-widget">
-          <label for="tags">Search: </label>
-          <input id="tags">
+      <div class="grid_6" style="margin-top: 50px; color:black"><div class="ui-widget">
+        <label for="tags">Search: </label>
+        <form id="restaurantform" action="best-restaurants-and-aspect">
+          <div class="grid_2"><input type="text" id="tags"></div>
+          <div class="grid_2"><input type="text" id="tags1"></div>
+          <input type="submit" value="search">
+        </form>
+
+        <div id="ajaxResponse">
+
+
         </div>
+      </div>
+
       </div>
     </div>
   </div>
   </div>
 </section>
+
+<script type='text/javascript'>
+  $("#restaurantform").submit(function(event) {
+
+    event.preventDefault();
+    var $form = $( this ),
+            url = $form.attr( 'action' );
+    var posting = $.post( url, { resname: $('#tags').val(), aspectname: $('#tags1').val() } );
+
+    posting.done(function( response ) {
+
+      $("#ajaxResponse").empty();
+
+      var divs=response.split("##");
+      $("#ajaxResponse").append("</br>")
+
+      $("#ajaxResponse").append('<table>');
+      $("#ajaxResponse").append('<tr><td>'+"Restaurants"+'</td><td width="15px">'+'\t'+'</td><td>'+"Score"+'</td></tr>');
+
+      for (var i=0; i < divs.length-1; i++){
+        var divs1=divs[i].split("*")
+        $("#ajaxResponse").append('<tr><td style="width: 350px">'+divs1[0]+ '</td><td width="15px">'+'\t'+'</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr>');
+      }
+      $("#ajaxResponse").append('</table>');
+    });
+  });
+</script>
 </body>
 </html>

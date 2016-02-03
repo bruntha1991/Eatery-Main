@@ -1,3 +1,7 @@
+<%@ page import="java.util.List" %>
+<%@ page import="org.json.simple.JSONObject" %>
+<%@ page import="com.arcturusx.eatery.domain.BusinessEntity" %>
+<%@ page import="com.arcturusx.eatery.domain.FoodEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: prakhash
@@ -16,6 +20,8 @@
   <link rel="stylesheet" href="resources/css/stuck.css">
   <link rel="stylesheet" href="resources/css/style.css">
   <link rel="stylesheet" href="resources/css/touchTouch.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src="resources/js/jquery.js"></script>
   <script src="resources/js/jquery-migrate-1.1.1.js"></script>
   <script src="resources/js/script.js"></script>
@@ -29,16 +35,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="resources/styles.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src=resources/script.js></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script>
-    $(document).ready(function(){
+    $(function() {
+      <%
+      List clusterheadlists=(List) request.getAttribute("clusterheadlists");
+      String listString="[";
+      for (int i=0;i<clusterheadlists.size()-1;i++){
+      String clusterhead=(String) clusterheadlists.get(i);
+      listString+="\"";
+      listString+=clusterhead+"\",";
+      }
+     String clusterhead=(String) clusterheadlists.get(clusterheadlists.size()-1);
+      listString+="\"";
+      listString+=clusterhead+"\"]";
 
-      $().UItoTop({ easingType: 'easeOutQuart' });
-      $('#stuck_container').tmStickUp({});
-      $('.gallery .gall_item').touchTouch();
-
+      %>
+      <%--var availableTags = <%=listString%>--%>
+      $( "#tags" ).autocomplete({
+        source: <%=listString%>
+      });
     });
+
   </script>
   <!--[if lt IE 9]>
   <div style=' clear: both; text-align:center; position: relative;'>
@@ -105,7 +128,7 @@
       <div class="grid_4" style="margin-top: 50px">
         <div id='cssmenu'>
           <ul>
-            <li class='active has-sub'><a href='#'>Aspect</a>
+            <li><a href='Main'>Aspect</a>
               <ul>
                 <li class="has-sub"><a href='#'>Food</a>
 
@@ -169,20 +192,53 @@
                 </li>
               </ul>
             </li>
-            <li><a href='#'>Restaurant</a></li>
-            <li><a href='#'>Food</a></li>
+            <li><a href='Restaurants'>Restaurant</a></li>
+            <li><a href='food-list'>Food</a></li>
           </ul>
         </div>
-
       </div>
-      <div class="grid_4" style="margin-top: 50px; color:black">
+      <div class="grid_6" style="margin-top: 50px; color:black"><div class="ui-widget">
+        <label for="tags">Search: </label>
+        <form id="foodform" action="best-food">
+          <div class="grid_3"><input type="text" id="tags"></div>
+          <input type="submit" value="search">
+        </form>
+        <div id="ajaxResponse">
 
+
+        </div>
+      </div>
       </div>
     </div>
   </div>
-  </div>
-
-
 </section>
+<script type='text/javascript'>
+  $("#foodform").submit(function(event) {
+
+    event.preventDefault();
+    var $form = $( this ),
+            url = $form.attr( 'action' );
+    var posting = $.post( url, { clusterHead: $('#tags').val() } );
+
+    posting.done(function( response ) {
+      $("#ajaxResponse").empty();
+
+      var divs=response.split("##");
+
+      $("#ajaxResponse").append("</br>")
+
+      $("#ajaxResponse").append('<table>');
+
+      $("#ajaxResponse").append('<tr><td>'+"Restaurants"+'</td><td width="15px">'+'\t'+'</td><td>'+"Score"+'</td></tr>');
+
+      for (var i=0; i < divs.length-1; i++){
+        var divs1=divs[i].split("*")
+        $("#ajaxResponse").append('<tr><td style="width: 350px">'+divs1[0]+ '</td><td width="15px">'+'\t'+'</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr>');
+      }
+      $("#ajaxResponse").append('</table>');
+    });
+  });
+
+</script>
 </body>
 </html>

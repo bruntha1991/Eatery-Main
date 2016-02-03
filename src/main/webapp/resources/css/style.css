@@ -980,3 +980,26 @@ header h1 a img {
         width: auto;
     }
 }
+
+.bar {
+    list-style: none;
+    padding-top: 20px;
+    width:560px;
+}
+.bar li {
+    height: 30px;
+    color: white;
+    text-align: left;
+    font-style: italic;
+    font-weight:bolder;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0px 20px;
+    margin-bottom: 5px;
+}
+
+
+.bar li {
+    background: #3ab4a6;
+    width:30%;
+}

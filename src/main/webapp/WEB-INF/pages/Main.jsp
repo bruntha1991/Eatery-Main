@@ -169,8 +169,8 @@
                 </li>
               </ul>
             </li>
-            <li><a href='#'>Restaurant</a></li>
-            <li><a href='#'>Food</a></li>
+            <li><a href='Restaurants'>Restaurant</a></li>
+            <li><a href='food-list'>Food</a></li>
           </ul>
         </div>
 
@@ -186,37 +186,45 @@
 
 </section>
 <script>
-    function getId(cell,value) {
+  function getId(cell,value) {
 
-        "use strict";
+    "use strict";
 
-        // get the form values
-        var value = value;
+    // get the form values
+    var value = value;
 
-        event.preventDefault();
-        $.ajax({
+    event.preventDefault();
+    $.ajax({
 
-            type: "POST",
-            url: "best-restaurants-aspect",
-            data: "aspect_id=" + value,
-            success: function (response) {
+      type: "POST",
+      url: "best-restaurants-aspect",
+      data: "aspect_id=" + value,
+      success: function (response) {
 
-               $("#ajaxResponse").empty();
+        $("#ajaxResponse").empty();
 
-                var divs=response.split("##");
+        var divs=response.split("##");
 
-              for (var i=0; i < divs.length; i++){
-                var divs1=divs[i].split("*")
-                  $("#ajaxResponse").append(divs1[0]+ " --"+divs1[1]+"</br>");
-              }
+        $("#ajaxResponse").append('<table>');
 
-            },
-            error: function (e) {
-                alert("error");
-            }
-        });
 
-    }
+        $("#ajaxResponse").append('<tr><td width="20px">'+'\t'+'</td><td style="width: 350px">'+'<tr><td>'+"Restaurants"+'</td><td width="15px">'+'\t'+'</td><td>'+"Score"+'</td></tr>');
+
+        for (var i=0; i < divs.length-1; i++){
+          var divs1=divs[i].split("*")
+         // $("#ajaxResponse").append('<tr><td width="20px" height="20px">'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td style="width: 350px">'+'<tr><td>'+divs1[0]+ " --"+divs1[1]+"</br>");
+
+          $("#ajaxResponse").append('<tr><td width="20px" height="20px">'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td style="width: 350px">'+divs1[0]+ '</td><td width="15px">'+'\t'+'</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr>');
+
+        }
+
+      },
+      error: function (e) {
+        alert("error");
+      }
+    });
+
+  }
 </script>
 </body>
 </html>

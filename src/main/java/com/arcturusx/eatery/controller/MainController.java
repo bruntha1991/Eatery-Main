@@ -1,9 +1,6 @@
 package com.arcturusx.eatery.controller;
 
-import com.arcturusx.eatery.domain.AspectEntity;
-import com.arcturusx.eatery.domain.CompositeScoreEntity;
-import com.arcturusx.eatery.domain.FoodEntity;
-import com.arcturusx.eatery.domain.FoodRating;
+import com.arcturusx.eatery.domain.*;
 import com.arcturusx.eatery.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -43,11 +41,14 @@ public class MainController {
 
 //    CompositeRating compositeRating=new CompositeRating();
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/Main",method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
-        model.addAttribute("message", "Hello world!");
-        model.addAttribute("notFirstTime", "0");
         return "Main";
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView MainPage(ModelMap model) {
+        return new ModelAndView("redirect:/Main");
     }
 
     @RequestMapping(value = "autocomplete", method = RequestMethod.GET)
@@ -59,8 +60,10 @@ public class MainController {
     @RequestMapping(value = "Restaurants", method = RequestMethod.GET)
     public String getRestaurant(ModelMap model) {
         List csRestaurants = businessService.getAllBusinesses();
+        List csAsects=aspectService.getAllAspects();
         model.addAttribute("message", csRestaurants);
-        return "AutocompleteRestaurant";
+        model.addAttribute("message1", csAsects);
+        return "Restaurant";
     }
 
     @RequestMapping(value = "Foods", method = RequestMethod.GET)
@@ -93,9 +96,7 @@ public class MainController {
         List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(asId);
 
         String response="";
-
-
-        for(int i=0;i<csRestaurants.size();i++){
+        for(int i=csRestaurants.size()-1;i>csRestaurants.size()-6 && i>=0;i--){
             CompositeScoreEntity compositeScoreEntity= (CompositeScoreEntity) csRestaurants.get(i);
             response=response+businessService.getBusiness(compositeScoreEntity.getBusinessId()).getName()+"*"+compositeScoreEntity.getCompositeScore();
             response+="##";
@@ -117,21 +118,69 @@ public class MainController {
         return aspectID;
     }
 
-    @RequestMapping(value = "best-restaurants-and-aspect", method = RequestMethod.GET)
-    public String bestRestaurantAndAspect(ModelMap model) throws JsonProcessingException {
-        List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(10, "2e2e7WgqU1BnpxmQL5jbfw");
-        model.addAttribute("message", objectMapper.writeValueAsString(csRestaurants));
-        return "result";
+    @RequestMapping(value = "best-restaurants-and-aspect", method = RequestMethod.POST)
+    public @ResponseBody String bestRestaurantAndAspect(ModelMap model,String resname,String aspectname) throws JsonProcessingException {
+
+        int aspectId=0;
+        String busnessId="";
+
+        List aspectList=aspectService.getAllAspects();
+        List busList=businessService.getAllBusinesses();
+
+        for(int i=0;i<aspectList.size();i++){
+            AspectEntity aspectEntity= (AspectEntity) aspectList.get(i);
+            if(aspectEntity.getAspectName().equals(aspectname)){
+                aspectId=aspectEntity.getAspectId();
+                System.out.println(aspectId);
+                break;
+            }
+        }
+
+        for(int i=0;i<busList.size();i++){
+            BusinessEntity businessEntity= (BusinessEntity) busList.get(i);
+            if(businessEntity.getName().equals(resname)){
+                busnessId=businessEntity.getBusinessId();
+                break;
+            }
+        }
+
+        List csRestaurants = compositeScoreService.getBestRestaurantsOfAspect(aspectId,busnessId);
+
+
+        String response="";
+        for(int i=csRestaurants.size()-1;i>csRestaurants.size()-6 && i>=0;i--){
+            CompositeScoreEntity compositeScoreEntity= (CompositeScoreEntity) csRestaurants.get(i);
+            response=response+businessService.getBusiness(compositeScoreEntity.getBusinessId()).getName()+"*"+compositeScoreEntity.getCompositeScore();
+            response+="##";
+        }
+
+        return response;
     }
 
-    @RequestMapping(value = "best-food", method = RequestMethod.GET)
-    public String bestFood(ModelMap model) {
-        List ch=foodService.getAllClusterHeads();
-        List csRestaurants = foodService.getAllFood("beans");
+    @RequestMapping(value = "best-food", method = RequestMethod.POST)
+    public @ResponseBody String bestFood(ModelMap model,String clusterHead) {
+        List csRestaurants = foodService.getAllFood(clusterHead);
 
-        model.addAttribute("csRestaurants",csRestaurants);
-        return "result";
+        String response="";
+        for(int i=0;i<csRestaurants.size();i++){
+            FoodEntity foodEntity= (FoodEntity) csRestaurants.get(i);
+            response=response+businessService.getBusiness(foodEntity.getRestaurantId()).getName().toString()+"*"+foodEntity.getScore();
+            response+="##";
+        }
+
+        return response;
+
     }
+
+    @RequestMapping(value = "food-list", method = RequestMethod.GET)
+    public String getFoodSearch(ModelMap model) {
+        // List csRestaurants = foodService.getAllFood("beans");
+        List clusterheadlists=foodService.getAllClusterHeads();
+
+        model.addAttribute("clusterheadlists",clusterheadlists);
+        return "Food";
+    }
+
 
     private double getCompositeScore(List list) {
         double score=0.0;
