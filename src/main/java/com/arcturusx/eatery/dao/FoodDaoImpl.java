@@ -25,7 +25,7 @@ public class FoodDaoImpl implements FoodDao {
 
     @Override
     public List getAllClusterHeads() {
-        return sessionFactory.getCurrentSession().createQuery("select distinct FoodEntity.clusterHead from FoodEntity ").list();
+        return sessionFactory.getCurrentSession().createQuery("select distinct food.clusterHead from FoodEntity as food ").list();
 
     }
 }

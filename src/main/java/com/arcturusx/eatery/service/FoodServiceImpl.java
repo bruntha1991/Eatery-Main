@@ -19,12 +19,14 @@ public class FoodServiceImpl implements FoodService {
         return foodDao.getAllFood(businessID, clusterHead);
     }
 
-    @Override
+    @Override    @Transactional
+
     public List getAllFood(String clusterHead) {
         return foodDao.getAllFood(clusterHead);
     }
 
-    @Override
+    @Override    @Transactional
+
     public List getAllClusterHeads() {
         return foodDao.getAllClusterHeads();
     }

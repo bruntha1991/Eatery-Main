@@ -126,6 +126,7 @@ public class MainController {
 
     @RequestMapping(value = "best-food", method = RequestMethod.GET)
     public String bestFood(ModelMap model) {
+        List ch=foodService.getAllClusterHeads();
         List csRestaurants = foodService.getAllFood("beans");
 
         model.addAttribute("csRestaurants",csRestaurants);
