@@ -175,7 +175,7 @@
         </div>
 
       </div>
-      <div class="grid_4" id="ajaxResponse" style="margin-top: 50px; color:black">
+      <div class="grid_6" id="ajaxResponse" style="margin-top: 50px; color:black">
 
 
       </div>
@@ -208,13 +208,13 @@
         $("#ajaxResponse").append('<table>');
 
 
-        $("#ajaxResponse").append('<tr><td width="20px">'+'\t'+'</td><td style="width: 350px">'+'<tr><td>'+"Restaurants"+'</td><td width="15px">'+'\t'+'</td><td>'+"Score"+'</td></tr>');
+        $("#ajaxResponse").append('<tr><td width="20px">'+'\t'+'</td><td style="width: 350px">'+'<tr style="font-size: 15px; font-weight: bold;"><td>'+"Restaurants"+'</td><td width="80px">'+'\t'+'</td><td width="80px">'+'\t'+'</td><td>'+"Score"+'</td></tr><tr style="height: 15px"></tr>');
 
         for (var i=0; i < divs.length-1; i++){
           var divs1=divs[i].split("*")
-         // $("#ajaxResponse").append('<tr><td width="20px" height="20px">'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td style="width: 350px">'+'<tr><td>'+divs1[0]+ " --"+divs1[1]+"</br>");
+          // $("#ajaxResponse").append('<tr><td width="20px" height="20px">'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td style="width: 350px">'+'<tr><td>'+divs1[0]+ " --"+divs1[1]+"</br>");
 
-          $("#ajaxResponse").append('<tr><td width="20px" height="20px">'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td style="width: 350px">'+divs1[0]+ '</td><td width="15px">'+'\t'+'</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr>');
+          $("#ajaxResponse").append('<tr><td>'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td width="15px">'+'\t'+'</td><td style="width: 400px">'+divs1[0]+ '</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr><tr style="height: 15px"></tr>');
 
         }
 
