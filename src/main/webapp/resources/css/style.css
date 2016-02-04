@@ -1003,3 +1003,24 @@ header h1 a img {
     background: #3ab4a6;
     width:30%;
 }
+.btn-style{
+    cursor: pointer;
+    border : solid 0px #e6e6e6;
+    border-radius : 10px;
+    moz-border-radius : 10px;
+    -webkit-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    -moz-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    font-size : 20px;
+    color : #fffcff;
+    padding : 1px 17px;
+    background : #3cfaea;
+    background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3cfaea), color-stop(49%,#41e0c6), color-stop(51%,#48dbc7), color-stop(100%,#3bc7b4));
+    background : -moz-linear-gradient(top, #3cfaea 0%, #41e0c6 49%, #48dbc7 51%, #3bc7b4 100%);
+    background : -webkit-linear-gradient(top, #3cfaea 0%, #41e0c6 49%, #48dbc7 51%, #3bc7b4 100%);
+    background : -o-linear-gradient(top, #3cfaea 0%, #41e0c6 49%, #48dbc7 51%, #3bc7b4 100%);
+    background : -ms-linear-gradient(top, #3cfaea 0%, #41e0c6 49%, #48dbc7 51%, #3bc7b4 100%);
+    background : linear-gradient(top, #3cfaea 0%, #41e0c6 49%, #48dbc7 51%, #3bc7b4 100%);
+    filter : progid:DXImageTransform.Microsoft.gradient( startColorstr='#3cfaea', endColorstr='#3bc7b4',GradientType=0 );
+
+}

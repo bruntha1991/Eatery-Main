@@ -214,7 +214,7 @@
           var divs1=divs[i].split("*")
           // $("#ajaxResponse").append('<tr><td width="20px" height="20px">'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td style="width: 350px">'+'<tr><td>'+divs1[0]+ " --"+divs1[1]+"</br>");
 
-          $("#ajaxResponse").append('<tr><td>'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td width="15px">'+'\t'+'</td><td style="width: 400px">'+divs1[0]+ '</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr><tr style="height: 15px"></tr>');
+          $("#ajaxResponse").append('<tr><td>'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td width="15px">'+'\t'+'</td><td valign="middle" style="width: 400px">'+divs1[0]+ '</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr><tr style="height: 15px"></tr>');
 
         }
 

@@ -198,10 +198,10 @@
         </div>
       </div>
       <div class="grid_6" style="margin-top: 50px; color:black"><div class="ui-widget">
-        <label for="tags">Search: </label>
+        <label for="tags" style="font-size: 15px; font-weight: bold;">Search: </label>
         <form id="foodform" action="best-food">
           <div class="grid_3"><input type="text" id="tags"></div>
-          <input type="submit" value="search">
+          <input type="submit" class="btn-style" value="search">
         </form>
         <div id="ajaxResponse">
 
@@ -229,11 +229,11 @@
 
       $("#ajaxResponse").append('<table>');
 
-     $("#ajaxResponse").append('<tr><td width="20px">'+'\t'+'</td><td style="width: 350px">'+'<tr style="font-size: 15px; font-weight: bold;"><td>'+"Restaurants"+'</td><td width="80px">'+'\t'+'</td><td width="80px">'+'\t'+'</td><td>'+"Score"+'</td></tr><tr style="height: 15px"></tr>');
+      $("#ajaxResponse").append('<tr><td width="20px">'+'\t'+'</td><td style="width: 350px">'+'<tr style="font-size: 15px; font-weight: bold;"><td>'+"Restaurants"+'</td><td width="80px">'+'\t'+'</td><td width="80px">'+'\t'+'</td><td>'+"Score"+'</td></tr><tr style="height: 15px"></tr><tr style="height: 15px"></tr>');
 
-      for (var i=0; i < divs.length-1; i++){
+      for (var i=0; (i < divs.length-1) && (i<5) ; i++){
         var divs1=divs[i].split("*")
-      $("#ajaxResponse").append('<tr><td>'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td width="15px">'+'\t'+'</td><td style="width: 400px">'+divs1[0]+ '</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr><tr style="height: 15px"></tr>');
+        $("#ajaxResponse").append('<tr><td>'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td width="15px">'+'\t'+'</td><td style="width: 400px">'+divs1[0]+ '</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr><tr style="height: 15px"></tr><tr style="height: 15px"></tr>');
       }
       $("#ajaxResponse").append('</table>');
     });
