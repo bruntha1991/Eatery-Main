@@ -221,13 +221,14 @@
       </div>
       <div class="grid_6" style="margin-top: 50px; color:black"><div class="ui-widget">
         <label for="tags" style="font-size: 15px; font-weight: bold;">Search: </label>
+        </br>
         <form id="restaurantform" action="best-restaurants-and-aspect">
           <div class="grid_2"><input type="text" id="tags"></div>
-          <div class="grid_2"><input type="text" id="tags1" ></div>
-          <div class="grid_1"><input type="submit" class="btn-style" value="search"></div>
+          <div class="grid_2" style="padding-left: 20px"><input type="text" id="tags1" ></div>
+          <div class="grid_1" style="padding-left: 20px; padding-top: 1px"><input type="submit" class="btn-style" value="search"></div>
         </form>
 
-        <div id="ajaxResponse">
+        <div id="ajaxResponse" style="padding-top: 50px">
 
 
         </div>
@@ -255,11 +256,11 @@
       $("#ajaxResponse").append("</br>")
 
       $("#ajaxResponse").append('<table>');
-      $("#ajaxResponse").append('<tr><td width="20px">'+'\t'+'</td><td style="width: 350px">'+'<tr style="font-size: 15px; font-weight: bold;"><td>'+"Restaurants"+'</td><td width="80px">'+'\t'+'</td><td width="80px">'+'\t'+'</td><td>'+"Score"+'</td></tr><tr style="height: 15px"></tr>');
+      $("#ajaxResponse").append('<tr><td width="20px">'+'\t'+'</td><td style="width: 350px">'+'<tr style="font-size: 15px; font-weight: bold;"><td>'+"Restaurants"+'</td><td width="80px">'+'\t'+'</td><td>'+"Score"+'</td></tr><tr style="height: 15px"></tr>');
 
       for (var i=0; (i < divs.length-1) && (i<5); i++){
         var divs1=divs[i].split("*")
-        $("#ajaxResponse").append('<tr><td>'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td width="15px">'+'\t'+'</td><td style="width: 400px">'+divs1[0]+ '</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr><tr style="height: 15px"></tr>');
+        $("#ajaxResponse").append('<tr><td>'+"<img src='resources/images/"+divs1[0]+".jpg'>"+'</td><td style="width: 400px; padding-top: 22px; padding-left: 15px">'+divs1[0]+ '</td><td class ="bar"> <li style="width: '+divs1[1]*80+'px">'+ parseInt(divs1[1]*1000)/1000+'</li></td></tr><tr style="height: 15px"></tr>');
 
       }
       $("#ajaxResponse").append('</table>');
